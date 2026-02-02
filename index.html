@@ -62,6 +62,27 @@ body {
     <h1 class="title">📖 List of Surahs</h1>
     <div id="ctn"></div>
 
-    <script src="script.js"></script>
+ <script>
+const ctn = document.getElementById("ctn");
+
+fetch("http://api.alquran.cloud/v1/surah")
+    .then(response => response.json())
+    .then(data => {
+        const surah = data.data;
+
+        surah.forEach(item => {
+            const surah_card = document.createElement("div");
+            surah_card.className = "surah-card";
+
+            surah_card.innerHTML = `
+                <div class="surah-name">${item.name}</div>
+                <div class="surah-number">Surah Number: ${item.number}</div>
+            `;
+
+            ctn.appendChild(surah_card);
+        });
+    })
+    .catch(err => console.error(err));
+</script>
 </body>
 </html>
